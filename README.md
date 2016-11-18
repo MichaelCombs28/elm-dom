@@ -19,6 +19,9 @@ I wrote this library specifically to overcome my inability to call
 might find it useful if you wish to read properties of the DOM for
 other reasons. 
 
+## Changes
+* Updated for Elm 0.18
+
 ### Contribute
 
 Please do! If, say, you need more traversal primitives (child nodes?), please

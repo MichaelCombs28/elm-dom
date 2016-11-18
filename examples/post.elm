@@ -1,4 +1,3 @@
-import Html.App exposing (map)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -10,16 +9,16 @@ import Json.Decode exposing (Decoder)
 import DOM exposing (..)
 
 
-type alias Model = 
+type alias Model =
   List Float
 
 
-model : Model 
-model = 
+model : Model
+model =
   []
 
 
-type Msg 
+type Msg
   = Measure (List Float)
 
 
@@ -28,7 +27,7 @@ init = ([], none)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update action model = 
+update action model =
   case action of
     Measure measures -> (measures, none)
 
@@ -38,12 +37,12 @@ update action model =
 
 infixr 5 :>
 (:>) : (a -> b) -> a -> b
-(:>) f x = 
+(:>) f x =
   f x
 
 
 decode : Decoder (List Float)
-decode = 
+decode =
   DOM.target                    -- (a)
   :> parentElement              -- (b)
   :> childNode 0                -- (c)
@@ -53,34 +52,34 @@ decode =
 
 
 css : Attribute a
-css = 
+css =
   style [ ("padding", "1em") ]
 
 
 view : Model -> Html Msg
-view model = 
+view model =
   div -- parentElement (b)
     []
     [ div -- childNode 0 (c)
         [ css ]
         [ div -- childNode 0 (d)
             []
-            [ span [ css ] [ text "short" ] 
-            , span [ css ] [ text "somewhat long" ] 
+            [ span [ css ] [ text "short" ]
+            , span [ css ] [ text "somewhat long" ]
             , span [ css ] [ text "longer than the others" ]
             ] -- childNodes (e)
         ]
-    , map Measure <| button -- target (a)
+    , Html.map Measure <| button -- target (a)
         [ css
-        , on "click" decode 
+        , on "click" decode
         ]
         [ text "Measure!" ]
-    , div 
+    , div
         [ css ]
-        [ model 
+        [ model
           |> List.map toString
           |> String.join ", "
-          |> text 
+          |> text
         , text "!"
         ]
     ]
@@ -89,10 +88,10 @@ view model =
 -- STARTAPP
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
-  Html.App.program 
-    { init = ( model, none ) 
+  program
+    { init = ( model, none )
     , view = view
     , subscriptions = always Sub.none
     , update = update
