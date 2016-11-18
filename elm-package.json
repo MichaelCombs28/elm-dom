@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "DOM traversal for Elm event-handlers forked from Debois/elm-dom",
-    "repository": "https://github.com/debois/elm-dom.git",
+    "repository": "https://github.com/MichaelCombs28/elm-dom.git",
     "license": "BSD3",
     "source-directories": [
         "src",
